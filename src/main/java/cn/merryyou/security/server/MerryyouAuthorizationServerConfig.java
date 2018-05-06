@@ -1,7 +1,8 @@
 package cn.merryyou.security.server;
 
-import cn.merryyou.security.properties.OAuth2ClientProperties;
-import cn.merryyou.security.properties.OAuth2Properties;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +18,8 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
-import java.util.ArrayList;
-import java.util.List;
+import cn.merryyou.security.properties.OAuth2ClientProperties;
+import cn.merryyou.security.properties.OAuth2Properties;
 
 /**
  * Created on 2018/1/15 0015.
@@ -57,7 +58,7 @@ public class MerryyouAuthorizationServerConfig extends AuthorizationServerConfig
         //扩展token返回结果
         if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
             TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-            List<TokenEnhancer> enhancerList = new ArrayList();
+            List<TokenEnhancer> enhancerList = new ArrayList<TokenEnhancer>();
             enhancerList.add(jwtTokenEnhancer);
             enhancerList.add(jwtAccessTokenConverter);
             tokenEnhancerChain.setTokenEnhancers(enhancerList);

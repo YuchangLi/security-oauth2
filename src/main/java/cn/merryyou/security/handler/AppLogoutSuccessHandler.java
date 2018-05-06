@@ -37,7 +37,7 @@ public class AppLogoutSuccessHandler implements LogoutSuccessHandler {
     private void removeAuthSession(Authentication authentication, SessionRegistry sessionRegistry) {
         List<SessionInformation> sessions = sessionRegistry.getAllSessions(authentication.getPrincipal(), false);
         if (sessions.size() > 0) { // there is only 1 session allowed
-            log.debug("removing session {} from registry", sessions.get(0).getSessionId());
+//            logger.debug("removing session "+sessions.get(0).getSessionId()+" from registry");
             sessionRegistry.removeSessionInformation(sessions.get(0).getSessionId());
         }
     }

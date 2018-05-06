@@ -46,7 +46,7 @@ public class AppLoginInSuccessHandler extends SavedRequestAwareAuthenticationSuc
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
 
-        log.info("【AppLoginInSuccessHandler】 onAuthenticationSuccess authentication={}", authentication);
+        logger.info("【AppLoginInSuccessHandler】 onAuthenticationSuccess authentication" +  authentication);
 
         String header = request.getHeader("Authorization");
 
@@ -78,7 +78,7 @@ public class AppLoginInSuccessHandler extends SavedRequestAwareAuthenticationSuc
 
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(objectMapper.writeValueAsString(token));
-        log.info("token={}", JsonUtil.toJson(token));
+        logger.info("token="+JsonUtil.toJson(token));
 
     }
 

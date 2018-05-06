@@ -6,6 +6,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,7 +22,7 @@ import java.io.UnsupportedEncodingException;
 @SpringBootApplication
 @Slf4j
 public class SecurityOauth2Application {
-
+    Logger log = LoggerFactory.getLogger(SecurityOauth2Application.class);
     @Autowired
     private OAuth2Properties oAuth2Properties;
 
@@ -33,8 +35,8 @@ public class SecurityOauth2Application {
         log.info("【SecurityOauth2Application】 getCurrentUser1 authenticaiton={}", JsonUtil.toJson(authentication));
 
         String header = request.getHeader("Authorization");
-        String token = StringUtils.substringAfter(header, "bearer ");
-
+        String token = StringUtils.substringAfter(header, "Bearer ");
+        System.out.println("getJwtSigningKey = "+oAuth2Properties.getJwtSigningKey().getBytes("UTF-8"));
         Claims claims = Jwts.parser().setSigningKey(oAuth2Properties.getJwtSigningKey().getBytes("UTF-8")).parseClaimsJws(token).getBody();
         String blog = (String) claims.get("blog");
         log.info("【SecurityOauth2Application】 getCurrentUser1 blog={}", blog);
